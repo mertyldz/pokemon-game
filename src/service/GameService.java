@@ -75,7 +75,9 @@ public class GameService {
         } else {
             System.out.println("Health of " + defenderPokemon.getName() + " belongs to " + defender.getName() +
                     " is dead!");
-            System.out.println(defender.getName() + " has lost the round!\n");
+            if (defender.getCharacter().getPokemonList().size() <= 1) {
+                System.out.println(defender.getName() + " has lost the round!\n");
+            }
             return false;
         }
     }
@@ -109,8 +111,24 @@ public class GameService {
         characterService.changeSelectedPokemon(player2);
         fightUntilDie(player1, player2);
 
+        
+        // Change pokemon for first round's winner if there is a lose in the 2nd round with selected pokemon.
+        changeToOtherPokemon(player1);
+        changeToOtherPokemon(player2);
+
+        // Fight with new pokemon
+        fightUntilDie(player1, player2);
+
         playerService.checkWinner(player1);
         playerService.checkWinner(player2);
+    }
+
+    public void changeToOtherPokemon(Player player) {
+        if (player.getCharacter().getSelectedPokemon().getHealth() <= 0) {
+            player.getCharacter().getPokemonList().remove(player.getCharacter().getSelectedPokemon());
+            player.getCharacter().setSelectedPokemon(player.getCharacter().getPokemonList().get(0));
+            System.out.println(player.getName() + " keeps fighting with " + player.getCharacter().getSelectedPokemon());
+        }
     }
 
     public void fightUntilDie(Player player1, Player player2) {
