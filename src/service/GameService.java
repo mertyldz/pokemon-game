@@ -67,13 +67,13 @@ public class GameService {
     public boolean healthCheck(Player defender) {
         Pokemon defenderPokemon = defender.getCharacter().getSelectedPokemon();
 
-        if (defenderPokemon.getHealth() >= 0) {
+        if (defenderPokemon.getHealth() > 0) {
             System.out.println("Health of " + defenderPokemon.getName() + " belongs to " + defender.getName() +
                     " is " + defenderPokemon.getHealth());
             System.out.println("Game continues...\n");
             return true;
         } else {
-            System.out.println("Health of " + defenderPokemon.getName() + " belongs to " + defender.getName() +
+            System.out.println(defenderPokemon.getName() + " belongs to " + defender.getName() +
                     " is dead!");
             if (defender.getCharacter().getPokemonList().size() <= 1) {
                 System.out.println(defender.getName() + " has lost the round!\n");
