@@ -47,7 +47,7 @@ public class PlayerService {
         return playerService.createPlayer(playerName, firstPlayerCharacter);
     }
     public void checkWinner(Player player){
-        if(player.getCharacter().getSelectedPokemon().getHealth() >= 0){
+        if(player.getCharacter().getSelectedPokemon().getHealth() > 0){
             player.setWinner(true);
             System.out.println(player.getName() + " has won the game!");
         }
